@@ -21,9 +21,10 @@ public class PushToMySQLDatabase {
 		String lineData = null;
 		int index = 0;
 		while ((lineData = util.readLine()) != null) {
+			System.out.println("===== begin read line =====");
 			StringBuilder sb = new StringBuilder(128);
 			List<String> list = CSVFileUtils.fromCSVLinetoArray(lineData);
-			sb.append("insert into pro_phone_owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
+			sb.append("insert into owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
 			sb.append("(");
 			sb.append("'").append(list.get(1)).append("',");
 			sb.append("'").append(list.get(2)).append("',");
@@ -41,11 +42,13 @@ public class PushToMySQLDatabase {
 			}
 			sb.append(");");
 			stmt.addBatch(sb.toString());
+			System.out.println("===== end read line ::  " + index + "=====");
 			index ++;
 			if (index == 5000) {
 				index = 0;
+				System.out.println("===== begin execute batch insert =====");
 				stmt.executeBatch();
-				System.out.println("===== execute batch insert =====");
+				System.out.println("===== end execute batch insert =====");
 			} 
 		}
 		if (stmt != null) {

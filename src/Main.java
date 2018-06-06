@@ -18,26 +18,30 @@ import com.mh.mobile.core.PushToServer;
  */
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		String sourceFile = args[0];
-		String targetType = args[1];
-		if ("sqlfile".equalsIgnoreCase(targetType)) { // 生成insert的sql语句
-			String targetFile = args[2];
-			ConvertToSQLFile.genSQLFile(sourceFile, targetFile);
-		} else if ("mysql".equalsIgnoreCase(targetType)) { // 直接插入到mysql数据库
-			// url::username::password
-			// jdbc:mysql://localhost:3306/appointment::root::root
-			String link = args[2];
-			PushToMySQLDatabase.push(sourceFile, link);
-		} else if ("restful".equalsIgnoreCase(targetType)) { // 调用restful接口传输数据
-			String apiurl = args[2];
-			PushToServer.push(sourceFile, apiurl);
-		} else if ("redis".equalsIgnoreCase(targetType)) { // 直接插入到redis数据库
-			// TODO
-		} else if ("excel".equalsIgnoreCase(targetType)) { // 生成excel表格数据
-			// TODO
-		} else if ("sort".equalsIgnoreCase(targetType)) { // 重排序记录
-			// TODO
+	public static void main(String[] args) {
+		try {
+			String sourceFile = args[0];
+			String targetType = args[1];
+			if ("sqlfile".equalsIgnoreCase(targetType)) { // 生成insert的sql语句
+				String targetFile = args[2];
+				ConvertToSQLFile.genSQLFile(sourceFile, targetFile);
+			} else if ("mysql".equalsIgnoreCase(targetType)) { // 直接插入到mysql数据库
+				// url::username::password
+				// jdbc:mysql://localhost:3306/appointment::root::root
+				String link = args[2];
+				PushToMySQLDatabase.push(sourceFile, link);
+			} else if ("restful".equalsIgnoreCase(targetType)) { // 调用restful接口传输数据
+				String apiurl = args[2];
+				PushToServer.push(sourceFile, apiurl);
+			} else if ("redis".equalsIgnoreCase(targetType)) { // 直接插入到redis数据库
+				// TODO
+			} else if ("excel".equalsIgnoreCase(targetType)) { // 生成excel表格数据
+				// TODO
+			} else if ("sort".equalsIgnoreCase(targetType)) { // 重排序记录
+				// TODO
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
 		}
 	}
 
