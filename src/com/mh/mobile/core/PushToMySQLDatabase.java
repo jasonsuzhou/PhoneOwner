@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import com.mh.jdbc.pool.JDBCConnectionPool;
 import com.mh.mobile.util.CSVFileUtils;
+import com.mh.mobile.util.SectionSet;
 
 public class PushToMySQLDatabase {
 
@@ -28,7 +29,6 @@ public class PushToMySQLDatabase {
 			List<String> list = CSVFileUtils.fromCSVLinetoArray(lineData);
 			sb.append(
 					"insert into pro_phone_owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
-			sb.append("insert into owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
 			sb.append("(");
 			sb.append("'").append(list.get(1)).append("',");
 			sb.append("'").append(list.get(2)).append("',");
@@ -46,7 +46,10 @@ public class PushToMySQLDatabase {
 			}
 			sb.append(");");
 			index++;
-			sqls.add(sb.toString());
+			if (!SectionSet.isExist(list.get(1))) {
+				sqls.add(sb.toString());
+				SectionSet.setSection(list.get(1));
+			} 
 			System.out.println("===== end read line ::  " + index + "=====");
 			if (index == 5000) {
 				index = 0;
