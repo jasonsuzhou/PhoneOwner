@@ -11,9 +11,12 @@ public class SectionSet {
 		set.add(section);
 	}
 	
-	public boolean isExist(String section) {
-		System.out.println("[Warn] There is duplicate section::" + section);
-		return set.contains(section);
+	public static boolean isExist(String section) {
+		boolean exist = set.contains(section);
+		if (exist) {
+			System.out.println("[Warn] There is duplicate section::" + section);
+		}
+		return exist;
 	}
 
 }

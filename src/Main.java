@@ -26,8 +26,8 @@ public class Main {
 				String targetFile = args[2];
 				ConvertToSQLFile.genSQLFile(sourceFile, targetFile);
 			} else if ("mysql".equalsIgnoreCase(targetType)) { // 直接插入到mysql数据库
-				// url::username::password
-				// jdbc:mysql://localhost:3306/appointment::root::root
+				// host::port::db::username::password
+				// localhost::3306::appointment::root::root
 				String link = args[2];
 				PushToMySQLDatabase.push(sourceFile, link);
 			} else if ("restful".equalsIgnoreCase(targetType)) { // 调用restful接口传输数据
