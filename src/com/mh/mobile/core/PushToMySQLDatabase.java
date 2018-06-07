@@ -23,10 +23,12 @@ public class PushToMySQLDatabase {
 			if (index == 0) {
 				sqls = new ArrayList<String>(5000);
 			}
+			System.out.println("===== begin read line =====");
 			StringBuilder sb = new StringBuilder(128);
 			List<String> list = CSVFileUtils.fromCSVLinetoArray(lineData);
 			sb.append(
 					"insert into pro_phone_owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
+			sb.append("insert into owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
 			sb.append("(");
 			sb.append("'").append(list.get(1)).append("',");
 			sb.append("'").append(list.get(2)).append("',");
@@ -45,6 +47,7 @@ public class PushToMySQLDatabase {
 			sb.append(");");
 			index++;
 			sqls.add(sb.toString());
+			System.out.println("===== end read line ::  " + index + "=====");
 			if (index == 5000) {
 				index = 0;
 				insertIntoDatabase(sqls, ds);

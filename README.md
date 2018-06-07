@@ -16,7 +16,7 @@ java -jar PhoneOwner.jar <sourceFile Path> sqlfile <targetFile Path>
 - 把CSV的内容直接插入到目标mysql数据库
 
 ```java
-java -jar PhoneOwner.jar <sourceFile Path> mysql <url::user::password>
+java -jar PhoneOwner.jar <sourceFile Path> mysql <host::port::db::user::password>
 ```
 
 - 把CSV的内容解析后post到远程地址
