@@ -56,7 +56,10 @@ public class PushToMySQLDatabase {
 				insertIntoDatabase(sqls, ds);
 			}
 		}
-
+		// The last cycle may not have 5000 records
+		if (sqls.size() < 5000) {
+			insertIntoDatabase(sqls, ds);
+		}
 	}
 
 	private static void insertIntoDatabase(final List<String> sqls, final DataSource ds) {
@@ -98,5 +101,5 @@ public class PushToMySQLDatabase {
 		}).start();
 		System.out.println("end insert into database");
 	}
-
+	
 }

@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class SectionSet {
 	
-	private static Set<String> set = new HashSet<String>();
+	private static Set<String> set = new HashSet<String>(500000);
 	
 	public static void setSection(String section) {
 		set.add(section);
