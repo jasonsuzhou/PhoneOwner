@@ -5,13 +5,14 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.mh.mobile.bean.PhoneOwner;
 import com.mh.mobile.util.CSVFileUtils;
+import com.mh.redis.BatchSetCommands;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisCommands;
+import io.lettuce.core.dynamic.RedisCommandFactory;
 
 public class PushToRedisCache {
-
+	
 	/**
 	 * 
 	 * @param sourceFile 
@@ -20,6 +21,8 @@ public class PushToRedisCache {
 	 * @throws Exception
 	 */
 	public static void push(String sourceFile, String link, String keyPrefix) throws Exception {
+		long startTime = System.currentTimeMillis();
+		System.out.println("Start Time:" + startTime);
 		if (keyPrefix == null) { 
 			keyPrefix = "";
 		}
@@ -34,7 +37,8 @@ public class PushToRedisCache {
 		String redisURI = "redis://"+password+"@"+host+":"+post+"/"+database;
 		RedisClient redisClient = RedisClient.create(redisURI);
 		StatefulRedisConnection<String, String> connection = redisClient.connect();
-		RedisCommands<String, String> syncCommands = connection.sync();
+		RedisCommandFactory factory = new RedisCommandFactory(connection);
+		BatchSetCommands commands = factory.getCommands(BatchSetCommands.class);
 		CSVFileUtils util = new CSVFileUtils(sourceFile);
 		String lineData = null;
 		String section = null;
@@ -56,10 +60,17 @@ public class PushToRedisCache {
 			} else {
 				phoneOwner.setZipCode(list.get(6));
 			}
-			syncCommands.setnx(section, JSON.toJSONString(phoneOwner));
+			commands.set(section, JSON.toJSONString(phoneOwner));
 		}
 		connection.close();
 		redisClient.shutdown();
+		long endTime = System.currentTimeMillis();
+		System.out.println("Total Time Seconds:" + (endTime - startTime)/1000);
 	}
 	
+	public static void main(String[] args) throws Exception {
+		String fileName = "I:\\jar_lib\\Mobile.20180405.387695.csv\\Mobile.csv";
+		String link = "192.168.1.103::6379::0";
+		PushToRedisCache.push(fileName, link, null);
+	}
 }
