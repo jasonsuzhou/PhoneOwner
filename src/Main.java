@@ -1,5 +1,6 @@
 import com.mh.mobile.core.ConvertToSQLFile;
 import com.mh.mobile.core.PushToMySQLDatabase;
+import com.mh.mobile.core.PushToRedisCache;
 import com.mh.mobile.core.PushToServer;
 
 /**
@@ -34,10 +35,21 @@ public class Main {
 				String apiurl = args[2];
 				PushToServer.push(sourceFile, apiurl);
 			} else if ("redis".equalsIgnoreCase(targetType)) { // 直接插入到redis数据库
+				String keyPrefix = null;
+				// host::port::database::password
+				// localhost::6379::0::123456
+				String link = args[2];
+				if (args.length > 3) {
+					keyPrefix = args[3];
+				}
+				PushToRedisCache.push(sourceFile, link, keyPrefix);
+			} else if ("text".equalsIgnoreCase(targetType)) { // 生成txt格式文件
 				// TODO
 			} else if ("excel".equalsIgnoreCase(targetType)) { // 生成excel表格数据
 				// TODO
 			} else if ("sort".equalsIgnoreCase(targetType)) { // 重排序记录
+				// TODO
+			} else if ("mysqlToRedis".equalsIgnoreCase(targetType)) { // mysql数据库复制到redis数据库
 				// TODO
 			}
 		} catch (Throwable e) {

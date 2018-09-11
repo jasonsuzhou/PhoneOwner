@@ -5,5 +5,22 @@
 	<classpathentry kind="lib" path="src/lib/mysql-connector-java-5.1.31.jar"/>
 	<classpathentry kind="lib" path="src/lib/HikariCP-3.1.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="src/lib/lettuce-core-5.1.0.RC1.jar"/>
+	<classpathentry kind="lib" path="src/lib/fastjson-1.2.9.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/commons-pool2-2.4.3.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/HdrHistogram-2.1.10.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/LatencyUtils-2.0.3.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-buffer-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-codec-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-common-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-handler-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-resolver-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-tcnative-1.1.33.Fork26-osx-x86_64.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-transport-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-transport-native-epoll-4.1.29.Final-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-transport-native-kqueue-4.1.29.Final-osx-x86_64.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/netty-transport-native-unix-common-4.1.29.Final.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/reactive-streams-1.0.2.jar"/>
+	<classpathentry kind="lib" path="src/lib/dependencies/reactor-core-3.1.9.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
