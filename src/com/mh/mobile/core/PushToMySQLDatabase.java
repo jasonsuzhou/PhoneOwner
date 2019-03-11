@@ -28,7 +28,7 @@ public class PushToMySQLDatabase {
 			StringBuilder sb = new StringBuilder(128);
 			List<String> list = CSVFileUtils.fromCSVLinetoArray(lineData);
 			sb.append(
-					"insert into conf_phone_owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
+					"insert into phone_owner(`section`,`province`,`city`,`vendor`,`area_code`,`zip_code`) values");
 			sb.append("(");
 			sb.append("'").append(list.get(1)).append("',");
 			sb.append("'").append(list.get(2)).append("',");

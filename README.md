@@ -31,6 +31,12 @@ java -jar PhoneOwner.jar <sourceFile Path> restful <remote URL>
 java -jar PhoneOwner.jar <sourceFile Path> redis <host::port:database::password> [<key prefix>]
 ```
 
+- 携号转网的号码插入目标redis数据库
+
+```java
+java -jar PhoneOwner.jar <sourceFile Path> redisex <host::port:database::password> [<key prefix>]
+```
+
 ## TODO
 - 把CSV插入到redis集群
 - 把CSV转换成excel

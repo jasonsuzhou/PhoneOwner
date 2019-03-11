@@ -1,4 +1,5 @@
 import com.mh.mobile.core.ConvertToSQLFile;
+import com.mh.mobile.core.PushExceptionPhoneToRedisCache;
 import com.mh.mobile.core.PushToMySQLDatabase;
 import com.mh.mobile.core.PushToRedisCache;
 import com.mh.mobile.core.PushToServer;
@@ -43,6 +44,15 @@ public class Main {
 					keyPrefix = args[3];
 				}
 				PushToRedisCache.push(sourceFile, link, keyPrefix);
+			} else if ("redisex".equalsIgnoreCase(targetType)) { //携号转网的号码放到redis
+				String keyPrefix = null;
+				// host::port::database::password
+				// localhost::6379::0::123456
+				String link = args[2];
+				if (args.length > 3) {
+					keyPrefix = args[3];
+				}
+				PushExceptionPhoneToRedisCache.push(sourceFile, link, keyPrefix);
 			} else if ("text".equalsIgnoreCase(targetType)) { // 生成txt格式文件
 				// TODO
 			} else if ("excel".equalsIgnoreCase(targetType)) { // 生成excel表格数据
