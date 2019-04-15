@@ -1,5 +1,9 @@
 package com.mh.mobile.core;
 
+import java.util.List;
+
+import com.alibaba.fastjson.JSON;
+import com.mh.mobile.bean.PhoneOwner;
 import com.mh.mobile.util.CSVFileUtils;
 import com.mh.redis.BatchSetCommands;
 
@@ -7,12 +11,7 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.dynamic.RedisCommandFactory;
 
-/**
- * 用户异常的号码放到redis里面去
- * @author 
- *
- */
-public class PushExceptionPhoneToRedisCache {
+public class PushToRedisCache2 {
 	
 	/**
 	 * 
@@ -42,12 +41,16 @@ public class PushExceptionPhoneToRedisCache {
 		BatchSetCommands commands = factory.getCommands(BatchSetCommands.class);
 		CSVFileUtils util = new CSVFileUtils(sourceFile);
 		String lineData = null;
+		String section = null;
 		while ((lineData = util.readLine()) != null) {
-			if (lineData.startsWith("\"")) {
-				commands.set(lineData, "0");
-			} else {
-				commands.set("\""+lineData+"\"", "0");
-			}
+			List<String> list = CSVFileUtils.fromCSVLinetoArray(lineData);
+			section = keyPrefix + list.get(0);
+			PhoneOwner phoneOwner = new PhoneOwner();
+			phoneOwner.setSection(section);
+			phoneOwner.setProvince(list.get(2));
+			phoneOwner.setCity(list.get(3));
+			phoneOwner.setVendor(list.get(1));
+			commands.set(section, JSON.toJSONString(phoneOwner));
 		}
 		connection.close();
 		redisClient.shutdown();
@@ -56,8 +59,8 @@ public class PushExceptionPhoneToRedisCache {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String fileName = "test.csv";
-		String link = "127.0.0.1::6379::0";
-		PushExceptionPhoneToRedisCache.push(fileName, link, null);
+		String fileName = "I:\\jar_lib\\Mobile.20180405.387695.csv\\Mobile.csv";
+		String link = "192.168.1.103::6379::0";
+		PushToRedisCache2.push(fileName, link, null);
 	}
 }
