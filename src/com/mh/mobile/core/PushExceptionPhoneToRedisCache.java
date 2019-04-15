@@ -43,7 +43,11 @@ public class PushExceptionPhoneToRedisCache {
 		CSVFileUtils util = new CSVFileUtils(sourceFile);
 		String lineData = null;
 		while ((lineData = util.readLine()) != null) {
-			commands.set(lineData, "0");
+			if (lineData.startsWith("\"")) {
+				commands.set(lineData, "0");
+			} else {
+				commands.set("\""+lineData+"\"", "0");
+			}
 		}
 		connection.close();
 		redisClient.shutdown();

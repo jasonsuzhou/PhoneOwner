@@ -39,7 +39,17 @@ public class PhoneOwner {
 	}
 
 	public void setVendor(String vendor) {
-		this.vendor = vendor;
+		if (vendor != null) {
+			if (vendor.contains("联通")) {
+				this.vendor = "中国联通";
+			} else if (vendor.contains("移动")) {
+				this.vendor = "中国移动";
+			} else if (vendor.contains("电信")) {
+				this.vendor = "中国电信";
+			} else {
+				this.vendor = vendor;
+			}
+		}
 	}
 
 	public String getProvince() {
