@@ -44,10 +44,9 @@ public class PushExceptionPhoneToRedisCache {
 		String lineData = null;
 		while ((lineData = util.readLine()) != null) {
 			if (lineData.startsWith("\"")) {
-				commands.set(lineData, "0");
-			} else {
-				commands.set("\""+lineData+"\"", "0");
+				lineData = lineData.replaceAll("\"", "");
 			}
+			commands.set(lineData, "0");
 		}
 		connection.close();
 		redisClient.shutdown();

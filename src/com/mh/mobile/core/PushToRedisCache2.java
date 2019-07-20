@@ -5,7 +5,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.mh.mobile.bean.PhoneOwner;
 import com.mh.mobile.util.CSVFileUtils;
-import com.mh.redis.BatchSetCommands;
+import com.mh.redis.BatchSetCommands2;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
@@ -38,7 +38,7 @@ public class PushToRedisCache2 {
 		RedisClient redisClient = RedisClient.create(redisURI);
 		StatefulRedisConnection<String, String> connection = redisClient.connect();
 		RedisCommandFactory factory = new RedisCommandFactory(connection);
-		BatchSetCommands commands = factory.getCommands(BatchSetCommands.class);
+		BatchSetCommands2 commands = factory.getCommands(BatchSetCommands2.class);
 		CSVFileUtils util = new CSVFileUtils(sourceFile);
 		String lineData = null;
 		String section = null;
@@ -59,8 +59,8 @@ public class PushToRedisCache2 {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String fileName = "I:\\jar_lib\\Mobile.20180405.387695.csv\\Mobile.csv";
-		String link = "192.168.1.103::6379::0";
+		String fileName = "C:\\Users\\jason.yao\\Desktop\\newMobile.csv";
+		String link = "localhost::6379::0";
 		PushToRedisCache2.push(fileName, link, null);
 	}
 }

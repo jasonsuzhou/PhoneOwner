@@ -69,8 +69,8 @@ public class PushToRedisCache {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String fileName = "I:\\jar_lib\\Mobile.20180405.387695.csv\\Mobile.csv";
+		String fileName = "C:\\Users\\jason.yao\\Desktop\\newMobile.csv";
 		String link = "192.168.1.103::6379::0";
-		PushToRedisCache.push(fileName, link, null);
+		PushToRedisCache2.push(fileName, link, null);
 	}
 }
